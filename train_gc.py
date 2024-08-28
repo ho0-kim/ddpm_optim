@@ -127,7 +127,7 @@ def train(rank=0, args=None, temp_dir=""):
     # the former follows Algorithm 1 as described in the paper by Kingma & Ba (2015) [1]
     # while the latter adopts an alternative approach mentioned just before Section 2.1
     # see also https://github.com/tensorflow/tensorflow/blob/v1.15.0/tensorflow/python/training/adam.py#L64-L69
-    optimizer = Adam(model.parameters(), lr=train_config.lr, betas=(train_config.beta1, train_config.beta2))
+    optimizer = Adam(model.parameters(), lr=train_config.lr, betas=(train_config.beta1, train_config.beta2), use_pj=True)
     # lr_lambda is used to calculate the learning rate multiplicative factor at timestep t (starting from 0)
     scheduler = lr_scheduler.LambdaLR(
         optimizer, lr_lambda=lambda t: min((t + 1) / train_config.warmup, 1.0)
